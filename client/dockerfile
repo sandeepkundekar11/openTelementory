@@ -1,0 +1,10 @@
+# Use the official NGINX image as a base
+FROM nginx:alpine
+
+# Copy your HTML and JavaScript files to the NGINX default html directory
+COPY index.html index.js /usr/share/nginx/html/
+
+# Expose port 80 to allow external access
+EXPOSE 80
+
+
