@@ -1,0 +1,28 @@
+FROM node:slim
+
+ENV DB_URL=mongodb+srv://sandeepkundekar1000:hYk7TRzhyNXn9pCg@cluster2.2sctu7b.mongodb.net/demo
+
+ENV PORT=8000
+
+
+WORKDIR /myapp
+
+COPY package*.json ./
+
+COPY . /myapp/
+
+RUN npm install
+
+RUN npm install \
+    @opentelemetry/api@1.8.0 \
+    @opentelemetry/auto-instrumentations-node@0.46.0 \
+    @opentelemetry/exporter-zipkin@1.24.0 \
+    @opentelemetry/sdk-metrics@1.24.0 \
+    @opentelemetry/sdk-node@0.51.0 \
+    @opentelemetry/sdk-trace-node@1.24.0 \
+    --save
+
+
+CMD [ "node","-r","./tracker.js", "index.js" ]
+
+EXPOSE 8000
